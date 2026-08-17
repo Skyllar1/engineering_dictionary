@@ -1,3 +1,4 @@
+import 'package:engineering_dictionary/ui/pages/dictionary_detail_page.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../database/database_model.dart';
@@ -17,44 +18,52 @@ class DictionaryListWidget extends StatelessWidget {
       itemCount: results.length,
       itemBuilder: (context, index) {
         DatabaseModel model = results[index];
-        return Container(
-          padding: EdgeInsets.all(8),
-          margin: EdgeInsets.fromLTRB(8, 0, 8, 8),
-          decoration: BoxDecoration(
-              color: CupertinoColors.systemBackground.resolveFrom(context),
-              border: Border.all(
-                  color: CupertinoColors.systemGrey5.resolveFrom(context)
-              )
-          ),
-          child: Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  model.eng,
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                  ),
+        return GestureDetector(
+          onTap: (){
+            Navigator.push(context, CupertinoPageRoute(builder: (context) {
+              return DictionaryDetailPage(databaseModel: model,);
+            },));
+          },
+          child: Container(
+            padding: EdgeInsets.all(8),
+            margin: EdgeInsets.fromLTRB(8, 0, 8, 8),
+            decoration: BoxDecoration(
+                color: CupertinoColors.systemBackground.resolveFrom(context),
+                border: Border.all(
+                    color: CupertinoColors.systemGrey5.resolveFrom(context)
                 ),
-                Text(
-                  model.type,
-                  style: TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                borderRadius: BorderRadius.circular(14)
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    model.eng,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                ),
-                Text(
-                  model.myan,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
+                  Text(
+                    model.type,
+                    style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ],
+                  Text(
+                    model.myan,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
             ),
           ),
         );
